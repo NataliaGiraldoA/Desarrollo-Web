@@ -6,8 +6,8 @@ function Encabezado() {
             <header className="encabezado">
                 <nav className="nav">
                     <ul className="nav-list">
-                        <li> <a href="#">Inicio</a></li>
-                        <li> <a href="#">Peliculas</a></li>
+                        <li> <a href="#">Home</a></li>
+                        <li> <a href="#">Movies</a></li>
                     </ul>
                 </nav>
             </header>

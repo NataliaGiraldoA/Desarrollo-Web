@@ -3,7 +3,7 @@ import "../styles/Cards.css"
 function Cards() {
   return (
     <div className="cards">
-      <h2>Nuestras películas favoritas</h2>
+      <h2>Our favourite movies</h2>
       <div className="card-list">
         <div className="card">
           <h3>Eternal sunshine of the spotless mind</h3>
