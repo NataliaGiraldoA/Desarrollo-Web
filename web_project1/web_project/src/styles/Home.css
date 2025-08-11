@@ -1,0 +1,16 @@
+.home-container{
+    text-align: center;
+    background-color: #BCA88D   ;
+    padding: 150px;
+}
+
+h1{
+    font-size: 50px;
+    font-family: sans-serif;
+}
+
+.text{
+    margin-top: 20px;
+    font-size: 25px;
+    font-family: sans-serif;
+}

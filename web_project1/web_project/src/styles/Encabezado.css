@@ -1,0 +1,41 @@
+.encabezado {
+  height: auto;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #F1F0E4;
+  margin: 0;
+  padding: 0;
+}
+
+
+.nav {
+  margin: 0;
+  padding: 20px;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex; 
+  gap: 20px;
+  justify-content: center;;
+}
+
+.nav-list li {
+  margin: 0;
+  padding: 10px;
+  color: black;
+  font-family: sans-serif;
+}
+nav a{
+  color: #3E3F29;
+  text-decoration: none;
+}
+nav a:hover{
+  color: black;
+}

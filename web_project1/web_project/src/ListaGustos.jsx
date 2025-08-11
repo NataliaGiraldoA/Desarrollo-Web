@@ -4,7 +4,7 @@ function ListaGustos() {
         backgroundColor: "blueviolet",
         
     }
-    const gustos = ["Taylor swift", "fastidiar", "Peliculas", "kelsier"]
+    const gustos = ["si", "fastidiar", "Peliculas", "kelsier"]
 
     return (
         <>
