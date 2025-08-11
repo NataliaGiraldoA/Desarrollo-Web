@@ -10,7 +10,7 @@ function Cards() {
           <div className="image-container">
             <img src="https://i.pinimg.com/1200x/3b/56/dd/3b56ddf226e6ba90722cb388433f3644.jpg" alt="Eternal sunshine of the spotless mind" />
           </div>
-          <p>it delves into  love, memory, and human connection, exploring the complexities and pain of relationships. It questions erasing painful memories and emphasizes the resilience of the human spirit.</p>
+          <p>It delves into  love, memory, and human connection, exploring the complexities and pain of relationships. It questions erasing painful memories and emphasizes the resilience of the human spirit.</p>
         </div>
         <div className="card">
           <h3>How to lose a guy in 10 days</h3>
