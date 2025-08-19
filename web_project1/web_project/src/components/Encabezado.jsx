@@ -1,8 +1,7 @@
 import "../styles/Encabezado.css"
 import logo from "../images/logo.png"
-import user from "../images/usuario.png"
 
-function Encabezado() {
+function Encabezado({user, onLogout}) {
     return (
         <>
             <header className="encabezado">
@@ -12,9 +11,17 @@ function Encabezado() {
                         <ul className="nav-list">
                             <li> <a href="#">Home</a></li>
                             <li> <a href="#">Movies</a></li>
+                            <li> <a href="#">Contact Us</a></li>
                         </ul>
                     </div>
-                    <img className="user-logo" src={user} alt="User Logo" />
+                    <div className="nav-user">
+                        {user?.user ? (
+                            <>
+                                <span className="user-name">👤 {user.user}</span>
+                                <button className="logout-button" onClick={onLogout}>Logout</button>
+                            </>
+                        ) : null}
+                    </div>
                 </nav>
             </header>
         </>
