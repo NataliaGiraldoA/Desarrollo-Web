@@ -9,6 +9,10 @@ export default function App() {
   const [sessionActive, setSessionActive] = useState(false)
   const [user, setUser] = useState(null)
 
+
+  //Tema
+  const [theme, setTheme] = useState("light");
+
   //Cargamos los estados del localStorage al iniciar
 
   useEffect(() => {
@@ -17,6 +21,12 @@ export default function App() {
     setSessionActive(ses);
     setUser(usu);
   }, []);
+
+  //Tema
+  const savedTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+
+
   const handleLoginSucces = () => {
     setSessionActive(true);
     setUser(JSON.parse(localStorage.getItem("usuario") || "null"));
@@ -25,19 +35,32 @@ export default function App() {
   const handleLogout = () => {
     setSessionActive(false);
     localStorage.removeItem("sesion");
+    localStorage.removeItem("usuario");
     setUser(null)
+  };
+
+  //Tema
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   if (!sessionActive) {
     //Muestra el login si no hay sesión
     return <Login onLogin={handleLoginSucces} />
 
-
-
   }
   return (
     <>
-      <Navbar user={user} onLogout={handleLogout} />
+      <Navbar 
+      user={user}
+      onLogout={handleLogout}
+      theme={theme}
+      toggleTheme={toggleTheme}
+      
+      />
       <main className="main-content">
 
         {/*ToDo por usuario*/}
