@@ -1,5 +1,5 @@
 
-export default function Navbar(user, onLogout){
+export default function Navbar({user, onLogout}){
     return(
         <nav className="navbar">
             <div className="logo">Mi logo</div>
@@ -11,7 +11,7 @@ export default function Navbar(user, onLogout){
             <div className="usuario">
                 {user?.usuario ?(
                     <>
-                        <spam style={{margin:8}}>😨 {user.usuario}</spam>
+                        <span style={{margin:8}}>😨 {user.usuario}</span>
                         <button onClick={onLogout}>Cerrar sesión </button>
                     </>
                 ): null}

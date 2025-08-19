@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Cards from "./components/Cards";
 import Login from "./components/Login";
+import ToDo from "./components/ToDo";
 
 export default function App() {
   const [sessionActive, setSessionActive] = useState(false)
@@ -16,7 +17,7 @@ export default function App() {
     setSessionActive(ses);
     setUser(usu);
   }, []);
-  const handleLoginSucces = () =>{
+  const handleLoginSucces = () => {
     setSessionActive(true);
     setUser(JSON.parse(localStorage.getItem("usuario") || "null"));
   };
@@ -27,26 +28,31 @@ export default function App() {
     setUser(null)
   };
 
-  if(!sessionActive){
+  if (!sessionActive) {
     //Muestra el login si no hay sesión
-    return <Login onLogin={handleLoginSucces}/>
+    return <Login onLogin={handleLoginSucces} />
 
 
 
   }
   return (
     <>
-    <Navbar user={user} onLogout={handleLogout}/>
-    <main className="main-content">
-      <Cards titulo={"TS12"} descripcion={"The life of a showgirl"}/>
-      <Cards titulo={"TS11"} descripcion={"The tortured poets departmen"}/>
-      <Cards titulo={"TS1"} descripcion={"Midnights"}/>
+      <Navbar user={user} onLogout={handleLogout} />
+      <main className="main-content">
 
-    </main>
+        {/*ToDo por usuario*/}
+        <ToDo user={user}/>
 
-    <footer>
-      <Footer />
-    </footer>
+        <Cards titulo={"TS12"} descripcion={"The life of a showgirl"} />
+        <Cards titulo={"TS11"} descripcion={"The tortured poets departmen"} />
+        <Cards titulo={"TS10"} descripcion={"Midnights"} />
+
+
+      </main>
+
+      <footer>
+        <Footer />
+      </footer>
 
     </>
 
