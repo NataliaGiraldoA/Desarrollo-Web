@@ -7,7 +7,7 @@
 
 .login-container h1 {
     margin-bottom: 1rem;
-    color: #3E3F29;
+    color: var(--text-primary);
     font-size: 50px;
     font-family: sans-serif;
 }
@@ -24,14 +24,14 @@
     max-width: 400px;
     padding: 0.75rem;
     margin-bottom: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
 }
 
 button{
-    background-color: #3E3F29;
-    color: #FAF9EE;
+    background-color: var(--button-bg);
+    color: var(--bg-card);
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;

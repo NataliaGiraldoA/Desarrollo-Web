@@ -1,3 +1,30 @@
+:root {
+  --bg-primary: #F1F0E4;
+  --bg-secondary: #BCA88D;
+  --bg-card: #FAF9EE;
+  --text-primary: #3E3F29;
+  --text-secondary: #666;
+  --text-contrast: black;
+  --button-bg: #3E3F29;
+  --button-text: #FAF9EE;
+  --button-hover: #4e4e3a;
+  --border-color: #ccc;
+}
+
+/* Modo oscuro */
+[data-theme="dark"] {
+  --bg-primary: #2A2B1A;
+  --bg-secondary: #3D3426;
+  --bg-card: #35362A;
+  --text-primary: #D4D2B8;
+  --text-secondary: #A8A695;
+  --text-contrast: #E8E6D4;
+  --button-bg: #5A5B3D;
+  --button-text: #F1F0E4;
+  --button-hover: #6B6C4A;
+  --border-color: #555;
+}
+
 /* Reset global */
 * {
   margin: 0;
@@ -9,6 +36,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #root {

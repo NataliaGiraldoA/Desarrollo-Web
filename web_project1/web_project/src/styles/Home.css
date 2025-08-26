@@ -1,16 +1,21 @@
-.home-container{
-    text-align: center;
-    background-color: #BCA88D   ;
-    padding: 150px;
+.home-container {
+  text-align: center;
+  background-color: var(--bg-secondary);
+  padding: 150px;
+  transition: background-color 0.3s ease;
 }
 
-h1{
-    font-size: 50px;
-    font-family: sans-serif;
+h1 {
+  font-size: 50px;
+  font-family: sans-serif;
+  color: var(--text-contrast);
+  transition: color 0.3s ease;
 }
 
-.text{
-    margin-top: 20px;
-    font-size: 25px;
-    font-family: sans-serif;
+.text {
+  margin-top: 20px;
+  font-size: 25px;
+  font-family: sans-serif;
+  color: var(--text-contrast);
+  transition: color 0.3s ease;
 }

@@ -1,0 +1,71 @@
+.todo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--bg-primary);
+}
+
+.todo-container h2 {
+    color: var(--button-bg);
+    font-size: 48px;
+    margin-bottom: 1rem;
+    margin: 2rem;
+}
+
+.form-task {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+.input-task {
+    width: 400px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.lista-tarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 820px;
+}
+
+.lista-tarea h3 {
+    color: var(--text-primary);
+    font-size: 24px;
+    margin-bottom: 1rem;
+}
+
+.items-map {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--button-bg);
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.pendientes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    padding: 0.75rem;
+    font-size: 20px;
+    margin-top: 10px;
+}

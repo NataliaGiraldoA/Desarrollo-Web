@@ -1,7 +1,7 @@
 .footer{
     padding: 50px;
     font-family: sans-serif;
-    background-color: #BCA88D;
+    background-color: var(--bg-secondary);
     font-weight: bold;
     text-align: center;
     font-size: 50px;

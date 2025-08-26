@@ -1,7 +1,7 @@
 import "../styles/Encabezado.css"
 import logo from "../images/logo.png"
 
-function Encabezado({user, onLogout}) {
+function Encabezado({user, onLogout, theme, toggleTheme}) {
     return (
         <>
             <header className="encabezado">
@@ -15,6 +15,7 @@ function Encabezado({user, onLogout}) {
                         </ul>
                     </div>
                     <div className="nav-user">
+                        <button onClick={toggleTheme} aria-label="Toggle theme">{theme === "light" ? "🌞" : "🌜"}</button>
                         {user?.user ? (
                             <>
                                 <span className="user-name">👤 {user.user}</span>
