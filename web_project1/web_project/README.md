@@ -1,12 +1,36 @@
-# React + Vite
+# PARCIAL
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este trabajo ya se venía realizando con anterioridad, agregando componentes como las tarjetas, el encabezado, formulario login. Para el parcial se agregaron distintas funcionalidades las cuales son las siguientes
 
-Currently, two official plugins are available:
+## TO-DO
+### Filtrar tareas
+- Se añadieron tres botones al componente To-Do con el fin de filtrar las tareas, donde nos muestran las tareas pendientes, las completas y todas.
+- Se mantiene el filtro a pesar de agregar nuevas tareas
+- A pesar de hacer Log out, se mantiene el último filtro usado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Edición de tareas
 
-## Expanding the ESLint configuration
+- Se edita el texto de una tarea ya existente dando doble click sobre esta 
+- Esta edición realizada se guarda en el localstorage
+- si se decide dejar de editar el texto, se puede dar click a la letra escape
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ADMIN
+
+- Se modificó el login para que varios usuarios pudieran estar guardados en el localstorage
+- Se agregó un checkbox en el registro para que se defina si es un usuario comun o un administrador
+
+### SALUDO
+
+- Si el usuario es admin se realiza un saludo dependiendo de la hora del día, esto se realizó en el componente "HOME"
+
+### Dashboard
+
+- Se agregó un componente dashboard con el fin de mostrar estadísticas globales de los usuarios, en esta se visualizan las tareas pendientes y las tareas totales de todos los usuarios
+- Se agregaron botones con el fin de que los administradores sean los únicos capaces de eliminar ya sea todas las tareas o las completadas
+- El usuario no puede eliminar estas tareas. Solo admin
+
+## TEMA
+
+- Se definió un tema claro y un tema oscuro, donde el usuario lo puede cambiar según su preferencia
+
+

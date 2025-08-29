@@ -7,17 +7,43 @@ export default function ToDo({ user }) {
     const storageKey = useMemo(() => `Todos_${user?.user || "anon"}`, [user],
     );
 
+    const filterStorageKey = useMemo(() => `Filter_${user?.user || "anon"}`, [user]);
+
     const [items, setItems] = useState([]);
     const [texto, setTexto] = useState("");
     const [isLoaded, setIsLoaded] = useState(false);
+    const [filter, setFilter] = useState("all");
+    const [editingId, setEditingId] = useState(null);
+    const [editingText, setEditingText] = useState("");
+    const isAdmin = user?.role === "admin";
+
+    const startEditing = (id, text) => {
+        setEditingId(id);
+        setEditingText(text);
+    };
+
+    const saveEditing = (id) => {
+        setItems(prev => prev.map(it => it.id === id ? { ...it, text: editingText } : it));
+        setEditingId(null);
+        setEditingText("");
+    };
+
+    const filteredItems = useMemo(() => {
+        if (filter === "all") return items;
+        if (filter === "pending") return items.filter(i => !i.done);
+        if (filter === "completed") return items.filter(i => i.done);
+    }, [items, filter]);
+
 
     //Cargar tareas
     useEffect(() => {
         console.log("Cargando tareas de:", storageKey);
         const saved = JSON.parse(localStorage.getItem(storageKey) || "[]");
+        const savedFilter = localStorage.getItem(filterStorageKey) || "all";
         setItems(saved);
+        setFilter(savedFilter);
         setIsLoaded(true);
-    }, [storageKey]);
+    }, [storageKey, filterStorageKey]);
 
 
     useEffect(() => {
@@ -25,6 +51,11 @@ export default function ToDo({ user }) {
         console.log("Guardando tareas de:", storageKey, items);
         localStorage.setItem(storageKey, JSON.stringify(items));
     }, [items, storageKey]);
+
+    useEffect(() => {
+        if (!isLoaded) return;
+        localStorage.setItem(filterStorageKey, filter);
+    }, [filter, filterStorageKey, isLoaded]);
 
     const addToDo = (e) => {
         e.preventDefault();
@@ -36,7 +67,7 @@ export default function ToDo({ user }) {
             //Buscar que significan los tres puntos
             ...prev, { id: crypto.randomUUID(), text: txt, done: false, ts: Date.now() },
         ]);
-        
+
         setTexto("");
     }
 
@@ -60,23 +91,28 @@ export default function ToDo({ user }) {
             <h2>My Tasks</h2>
             <form onSubmit={addToDo} className="form-task">
                 <div>
-                <input className="input-task"
-                    value={texto}
-                    onChange={(e) => setTexto(e.target.value)}
-                    placeholder="New task"
-                    aria-label="New task"
+                    <input className="input-task"
+                        value={texto}
+                        onChange={(e) => setTexto(e.target.value)}
+                        placeholder="New task"
+                        aria-label="New task"
 
-                />
+                    />
                 </div>
 
                 <button type="submit">Add Task</button>
             </form>
+            <div className="filters">
+                <button onClick={() => setFilter("all")} disabled={filter === "all"}>All</button>
+                <button onClick={() => setFilter("pending")} disabled={filter === "pending"}>Pending</button>
+                <button onClick={() => setFilter("completed")} disabled={filter === "completed"}>Completed</button>
+            </div>
 
             <ul className="lista-tarea">
-                {items.length == 0 && (
+                {filteredItems.length == 0 && (
                     <h3>There are no pending tasks</h3>
                 )}
-                {items.map(item => (
+                {filteredItems.map(item => (
                     <li key={item.id} className="items-map">
 
                         <input type="checkbox"
@@ -86,14 +122,41 @@ export default function ToDo({ user }) {
 
                         />
 
-                        <span className="text-checkbox">{item.text}</span>
+                        {editingId === item.id ? (
+                            <input
+                                value={editingText}
+                                onChange={(e) => setEditingText(e.target.value)}
+                                onBlur={() => saveEditing(item.id)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        saveEditing(item.id);
+                                    }
+                                    if (e.key === 'Escape') {
+                                        setEditingId(null);
+                                        setEditingText("");
+                                    }
+                                }}
+                                autoFocus
+                            />
 
-                        <button onClick={() =>
+                        ) : (
+                            <span
+                                className="text-checkbox"
+                                onDoubleClick={() => startEditing(item.id, item.text)}
+                            >
+                                {item.text}
+                            </span>
+                        )}
+
+                        <div className="admin-delete">
+                        {isAdmin && (
+                            <button onClick={() =>
                             removeToDo(item.id)}
                             aria-label="Delete task"
                         >
                             Delete
-                        </button>
+                        </button>)}
+                        </div>
 
                     </li>
 
@@ -101,7 +164,10 @@ export default function ToDo({ user }) {
 
                 <div className="pendientes">
                     <span>Pending tasks: {pending}</span>
-                    <button onClick={() => clearCompleted()}>Delete completed tasks</button>
+                    {isAdmin &&(
+                        <button onClick={() => clearCompleted()}>Delete completed tasks</button>
+                    )}
+                    
                 </div>
             </ul>
 

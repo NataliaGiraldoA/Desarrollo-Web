@@ -7,6 +7,7 @@ import { useState } from "react";
 import Login from "./components/Login";
 import Form from "./components/Form";
 import ToDo from "./components/ToDo";
+import Dashboard from "./components/Dashboard";
 
 export default function App(){
   const [sessionActive, setSessionActive] = useState(false);
@@ -18,7 +19,7 @@ export default function App(){
   //Load states from localStorage on start
   useEffect(() => {
     const ses = localStorage.getItem("Session") === "active";
-    const usu = JSON.parse(localStorage.getItem("user") || "null");
+    const usu = JSON.parse(localStorage.getItem("usuario") || "null");
     setSessionActive(ses);
     setUser(usu);
   }, []);
@@ -27,13 +28,14 @@ export default function App(){
   const savedTheme = localStorage.getItem("theme") || "light";
   document.documentElement.setAttribute("data-theme", savedTheme);
 
-  const handleLoginSuccess = () => {
+  const handleLoginSuccess = (u) => {
     setSessionActive(true);
-    setUser(JSON.parse(localStorage.getItem("user") || "null"));
+    setUser(u);
   };
   const handleLogout = () => {
     setSessionActive(false);
     localStorage.removeItem("Session");
+    localStorage.removeItem("usuario");
     setUser(null);
   };
 
@@ -55,8 +57,9 @@ export default function App(){
   <div>
     <Encabezado user={user} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
     <main className="main-content"> 
-      <Home />
+      <Home user={user}/>
       <ToDo user={user}/>
+      <Dashboard user={user}/>
       <Cards />
       <Form />
     </main>

@@ -40,3 +40,9 @@ button{
     margin: 5px;
     
 }
+
+.input-container label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}

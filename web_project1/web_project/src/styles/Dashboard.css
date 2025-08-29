@@ -1,0 +1,25 @@
+.dashboard-container {
+    background-color: var(--bg-primary);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.dashboard-stats {
+    background-color: var(--bg-primary);
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    color: var(--text-contrast);
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.dashboard-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
