@@ -74,9 +74,9 @@ export default function CharacterCard({ c, onClick }) {
                 </div>
             )}
 
-            <h3 style={{ margin: "8px 0 4px" }}>{c?.name}</h3>
+            <h3 style={{fontWeight: "bold", color: "black"}}>{c?.name}</h3>
             <small style={{ color: "#475569" }}>{c?.occupation || "—"}</small>
-            console.log(c?.name);
+            {console.log(c?.name)}
 
             {Array.isArray(c?.phrases) && c.phrases[0] && (
                 <p style={{ margin: "6px 0 0", fontStyle: "italic", color: "#334155" }}>
