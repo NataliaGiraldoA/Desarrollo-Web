@@ -1,22 +1,20 @@
 import { useMemo, useState } from "react"
 import { imageUrl } from "../api/simpson"
 
-export default function CharacterCard({ c, onClick }) {
-    const portraitRel = c?.portraitRel || c?.portrait || c?.image || c?.imageUrl || c?.thumbnail || "";
+export default function EpisodeCard({ c, onClick }) {
+    const imageRel = c?.image || c?.imageUrl || c?.thumbnail || "";
 
-    //si potraitreal existe devuelve la url final /usememo evita recalcular la url para mejorar el rendimiento
-    const src = useMemo(() => (portraitRel ? imageUrl(portraitRel) : ""), [portraitRel]);
+    const src = useMemo(() => (imageRel ? imageUrl(imageRel) : ""), [imageRel]);
 
     const [imgOk, setImgOk] = useState(true);
+
     return (
         <li
             role="button"
             tabIndex={0}
             onClick={() => onClick?.(c)}
             onKeyDown={(e) => (e.key === "Enter" ? onClick?.(c) : null)}
-            /**
-             * Estilos inline minimalistas (puedes moverlos a .css o Tailwind si quieres):
-             */
+
             style={{
                 border: "1px solid #ddd",
                 borderRadius: 12,
@@ -30,9 +28,9 @@ export default function CharacterCard({ c, onClick }) {
             onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
         >
             {src && imgOk ? (
-                <img
+                <img                    // clave única para forzar recarga si la URL cambia
                     src={src}                         // URL final del CDN
-                    alt={c?.name ?? "Personaje"}      // texto alternativo (accesibilidad)
+                    alt={c?.name ?? "Episodio"}      // texto alternativo (accesibilidad)
                     loading="lazy"                    // carga diferida para mejorar rendimiento
                     style={{
                         width: "100%",
@@ -43,6 +41,7 @@ export default function CharacterCard({ c, onClick }) {
                     }}
                     onError={() => setImgOk(false)}
                 />
+
             ) : (
                 <div
                     style={{
@@ -75,13 +74,8 @@ export default function CharacterCard({ c, onClick }) {
             )}
 
             <h3 style={{fontWeight: "bold", color: "black"}}>{c?.name}</h3>
-            <small style={{ color: "#475569" }}>{c?.occupation || "—"}</small>
-
-            {Array.isArray(c?.phrases) && c.phrases[0] && (
-                <p style={{ margin: "6px 0 0", fontStyle: "italic", color: "#334155" }}>
-                    “{c.phrases[0]}”
-                </p>
-            )}
+            <small style={{ color: "#475569" }}>Airdate: {c?.airdate || "—"}</small>
+            <p style={{color:"black"}}>{c?.synopsis}</p>
         </li>
     );
 }

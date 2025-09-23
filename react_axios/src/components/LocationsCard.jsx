@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { imageUrl } from "../api/simpson"
 
-export default function CharacterCard({ c, onClick }) {
+export default function LocationsChard({ c, onClick }) {
     const portraitRel = c?.portraitRel || c?.portrait || c?.image || c?.imageUrl || c?.thumbnail || "";
 
     //si potraitreal existe devuelve la url final /usememo evita recalcular la url para mejorar el rendimiento
@@ -32,7 +32,7 @@ export default function CharacterCard({ c, onClick }) {
             {src && imgOk ? (
                 <img
                     src={src}                         // URL final del CDN
-                    alt={c?.name ?? "Personaje"}      // texto alternativo (accesibilidad)
+                    alt={c?.name ?? "Location"}      // texto alternativo (accesibilidad)
                     loading="lazy"                    // carga diferida para mejorar rendimiento
                     style={{
                         width: "100%",
@@ -75,13 +75,9 @@ export default function CharacterCard({ c, onClick }) {
             )}
 
             <h3 style={{fontWeight: "bold", color: "black"}}>{c?.name}</h3>
-            <small style={{ color: "#475569" }}>{c?.occupation || "—"}</small>
+            <small style={{ color: "#475569" }}>{c?.town || "—"}</small>
 
-            {Array.isArray(c?.phrases) && c.phrases[0] && (
-                <p style={{ margin: "6px 0 0", fontStyle: "italic", color: "#334155" }}>
-                    “{c.phrases[0]}”
-                </p>
-            )}
+            <p style={{color: "black"}}>{c?.use}</p>
         </li>
     );
 }

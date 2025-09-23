@@ -1,7 +1,19 @@
 import http from "./http";
 
-export async function listCharacters(page=1, signal){
-    const response = await http.get('/characters', {params: {page}, signal});
+export async function listCharacters(page=1, signal, perPage=10){
+    const response = await http.get('/characters', {params: {page, perPage}, signal});
+    const data = response.data;
+    return Array.isArray(data) ? data : data?.results ?? data?.items ?? [];
+}
+
+export async function listEpisodes(page=1, signal, perPage=10){
+    const response = await http.get('/episodes', {params: {page, perPage}, signal});
+    const data = response.data;
+    return Array.isArray(data) ? data : data?.results ?? data?.items ?? [];
+}
+
+export async function listLocations(page=1, signal, perPage=10){
+    const response = await http.get('/locations', {params: {page, perPage}, signal});
     const data = response.data;
     return Array.isArray(data) ? data : data?.results ?? data?.items ?? [];
 }
@@ -22,9 +34,9 @@ location/1280px
 export function cdnSizeForImagePath(imagePath, size="200px"){
     const p = String(imagePath);
 
-    if (p.includes("/episode/")) return 200;
-    if (p.includes("/location/")) return 1280;
-    return 500; //por defecto character / otras img van a tener 500px
+    if (p.includes("/episode/")) return "200px";
+    if (p.includes("/location/")) return "1280px";
+    return "500px"; //por defecto character / otras img van a tener 500px
 
 }
 

@@ -2,7 +2,15 @@ import { useEffect, useState, useMemo } from "react";
 
 import { listCharacters } from "./api/simpson";
 
+import { listEpisodes } from "./api/simpson";
+
+import { listLocations } from "./api/simpson";
+
+import EpisodeCard from "./components/EpisodeCard";
+
 import CharacterCard from "./components/CharacterCard";
+
+import LocationsChard from "./components/LocationsCard";
 
 export default function App() {
 
@@ -11,6 +19,8 @@ export default function App() {
     const [q, setQ] = useState(""); //texto del buscador (input controlado)
     const [loading, setLoading] = useState(false); //estado de carga (mientras viene la API) -- Bandera booleana: true mientras esperamos la respuesta de API
     const [error, setError] = useState(null); //texto con el msg de error si falla la API
+    const [filterParam, setFilterParam] = useState("Character");
+    const [perPage, setPerPage] = useState(10); //número de elementos por página
 
     useEffect(() => {
         const controller = new AbortController(); //para abortar la petición fetch si el usuario cambia de página antes de que llegue la respuesta
@@ -20,12 +30,48 @@ export default function App() {
                 setLoading(true); //ponemos la bandera de carga a true
                 setError(""); //limpiamos errores previos
 
-                const data = await listCharacters(page, controller.signal); //llamamos a la API con la página actual y el texto del buscador
+                let data = [];
+
+                const detectType = (item) => {
+                    // Si tiene 'phrases' o 'occupation', es un personaje
+                    if (item.phrases || item.occupation) {
+                        return "character";
+                    }
+                    // Si tiene 'airdate' o 'synopsis', es un episodio
+                    if (item.airdate || item.synopsis) {
+                        return "episode";
+                    }
+                    if (item.town || item.use) {
+                        return "location";
+                    }
+                    return "unknown";
+                };
+
+                const addTypeToItems = (items) => {
+                    return items.map(item => ({
+                        ...item,
+                        type: detectType(item)
+                    }));
+                };
+
+                if (filterParam === "Character") {
+                    const rawData = await listCharacters(page, controller.signal, perPage);
+                    data = addTypeToItems(rawData);
+
+                } else if (filterParam === "Episode") {
+                    const rawData = await listEpisodes(page, controller.signal, perPage);
+                    data = addTypeToItems(rawData);
+                } else if (filterParam === "Location") {
+                    const rawData = await listLocations(page, controller.signal, perPage);
+                    data = addTypeToItems(rawData);
+                }
+
+
                 if (import.meta.env.NODE_ENV === "development" && data?.length === 0) {
                     console.log("[DEBUG] ejemplo item", data[0]);
                 }
 
-                setItems(data); //guardamos los personajes en el estado
+                setItems(Array.isArray(data) ? data : []); //guardamos los personajes en el estado
             }
             catch (e) {
                 //Si el interceptor marcó que fue cancelado, no mostramos nada
@@ -46,19 +92,31 @@ export default function App() {
                 setLoading(false);
             }
         })();
-    }, [page]);//Dependencia si la page cambia / repetimos todo el efecto
+    }, [page, filterParam, perPage]);//Dependencia si la page cambia, repetimos todo el efecto
 
     //----------------filtro por nombre--------------------
     const filtered = useMemo(() => {
-        const k = q.trim().toLowerCase(); //q es el texto del input
-        return k ? items.filter((c) => c.name?.toLowerCase().includes(k)) : items;
-    }, [items, q]); //si cambia items o q, recalculamos el filtro
+        const k = q.trim().toLowerCase();
+        return items.filter((item) => {
+            const typeOk =
+                (filterParam === "Character" && item?.type === "character") ||
+                (filterParam === "Location" && item?.type === "location") ||
+                (filterParam === "Episode" && item?.type === "episode");
 
-    return(
+            if (!typeOk) return false;
+
+            if (!k) return true;
+            return item?.name?.toLowerCase().includes(k);
+        });
+    }, [items, q, filterParam]);
+
+
+
+    return (
         <>
             <main>
                 <h1>Personajes de los Simpson</h1>
-                <div style={{display: "flex", gap: "8", margin: "12px 0"}}>
+                <div style={{ display: "flex", gap: "8", margin: "12px 0" }}>
                     <input
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
@@ -81,6 +139,34 @@ export default function App() {
                         ▶
                     </button>
                 </div>
+                <div>
+                    <select
+                        onChange={(e) => {
+                            setFilterParam(e.target.value);
+                            setPage(1); //resetea la página al cambiar el filtro
+                        }}
+                        className="custom-select"
+                        aria-label="Filter info">
+                        <option value="Character">Character</option>
+                        <option value="Location">Location</option>
+                        <option value="Episode">Episode</option>
+                    </select>
+
+                </div>
+                <div style={{ marginTop: 8, marginBottom: 8 }}>
+                    <select
+                        value={perPage}
+                        onChange={(e) => {
+                            setPerPage(Number(e.target.value));
+                            setPage(1); 
+                        }}
+                    >
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={30}>30</option>
+                        <option value={50}>50</option>
+                    </select>
+                </div>
 
                 {error && <p className="msgError">Error: {error}</p>}
                 {loading && <p className="msgLoading">Cargando...</p>}
@@ -89,12 +175,21 @@ export default function App() {
                 {/* Lista de personajes - Tarjetas */}
 
                 <ul className="cardGrid">
-                {filtered.map((c) => (
-                    <CharacterCard key={c.id} c={c} onClick={() => console.log("click en", c.name)} />
-                ))}
+                    {filtered.map((c) => {
+                        if (c.type === "character") {
+                            return <CharacterCard key={`character-${c.id}`} c={c} onClick={() => console.log("click en", c.name)} />;
+                        }
+                        if (c.type === "episode") {
+                            return <EpisodeCard key={`episode-${c.id}`} c={c} onClick={() => console.log("click en", c.name)} />;
+                        }
+                        if (c.type === "location") {
+                            return <LocationsChard key={`location-${c.id}`} c={c} onClick={() => console.log("click en", c.name)} />;
+                        }
+                        return null;
+                    })}
                 </ul>
 
             </main>
-        </>    
+        </>
     )
 }
