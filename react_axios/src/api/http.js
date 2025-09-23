@@ -13,7 +13,6 @@ http.interceptors.response.use(
             return Promise.reject({ canceled: true });
         }
         const status = error?.response?.status ?? 0; //Si no hay respuesta del servidor (sin conexión) status 0
-        //Posible error de fabiancito. le falta el ? al error = error.response?.
         const message = error?.response?.data?.message || error.message || "Error de red";
         //rechazamos con un objeto predecible
         return Promise.reject({ status, message, canceled: false });
