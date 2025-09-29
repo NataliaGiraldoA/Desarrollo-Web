@@ -8,7 +8,7 @@ export const useSettings = () => {
 };
 
 export function SettingsProvider({ children }) {
-  const [pageSize, setPageSize] = useState(10); // valor por defecto
+  const [pageSize, setPageSize] = useState(12); 
 
   const value = {
     pageSize,
