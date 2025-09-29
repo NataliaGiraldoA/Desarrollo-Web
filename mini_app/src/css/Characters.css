@@ -1,0 +1,127 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;         
+  height: auto;
+  font-family: 'Arial', sans-serif;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:focus {
+    outline: 2px solid #4a90e2;
+    outline-offset: 2px;
+}
+
+
+.card__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+}
+
+
+.card__img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    transition: transform 0.3s;
+}
+
+.card:hover .card__img {
+    transform: scale(1.05);
+}
+
+
+.card__placeholder {
+    width: 100%;
+    height: 350px;
+    border-radius: 10px 10px 0 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card__placeholderText {
+    font-size: 1.5em;
+    color: #888;
+}
+
+.card__link {
+    font-size: 0.8em;
+    color: #4a90e2;
+    text-decoration: underline;
+}
+
+
+.card__title {
+    margin: 15px 10px 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+.card__subtitle {
+    margin: 5px 10px;
+    font-size: 0.95em;
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+.card__house {
+    margin: 5px 10px 15px;
+    font-size: 0.95em;
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+
+@media (max-width: 768px) {
+    .card {
+        width: 250px;
+        margin: 15px;
+    }
+    
+    .card__img,
+    .card__placeholder {
+        height: 300px;
+    }
+    
+    .card__title {
+        font-size: 1.1em;
+    }
+    
+    .card__subtitle,
+    .card__house {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: 100%;
+        max-width: 350px;
+        margin: 10px auto;
+    }
+}

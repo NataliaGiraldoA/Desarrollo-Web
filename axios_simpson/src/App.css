@@ -1,0 +1,121 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+/* ========== Layout base de la app ========== */
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+  color: #0f172a; /* slate-900 */
+  background: #fff;
+}
+
+.app__title {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+/* ========== Toolbar (buscador + selects) ========== */
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  margin: 12px 0;
+  align-items: center;
+}
+
+.toolbar__search {
+  padding: 8px;
+  border: 1px solid #e2e8f0; /* slate-200 */
+  border-radius: 8px;
+  outline: none;
+}
+
+.toolbar__search:focus {
+  border-color: #94a3b8; /* slate-400 */
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
+}
+
+.toolbar__select {
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  outline: none;
+}
+
+.toolbar__select:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
+}
+
+/* ========== Botones y paginación ========== */
+.btn {
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:not(:disabled):hover {
+  background: #f8fafc; /* slate-50 */
+}
+
+.pagination {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 8px;
+  align-items: center;
+}
+
+.pagination__label {
+  font-size: 14px;
+  color: #475569; /* slate-600 */
+}
+
+/* ========== Estados (mensajes de feedback) ========== */
+.status {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #334155; /* slate-700 */
+}
+
+.status--error {
+  color: #b91c1c; /* red-700 */
+}
+
+/* ========== Grid de tarjetas ========== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
