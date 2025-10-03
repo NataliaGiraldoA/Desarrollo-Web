@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import { http } from "../api/http"
 
-const httpGet = (url, { params, signal }) => axios.get(url, { params, signal });
+const httpGet = (url, { params, signal }) => http.get(url, { params, signal });
 
 export default function useGot(endpoint = '', { lazy = false, defaultData = null } = {}) {
     const [data, setData] = useState(defaultData);
